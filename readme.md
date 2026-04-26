@@ -9,14 +9,17 @@ It includes authentication, role-based access (client, employee, admin), order t
 
 
 git clone <repo-url>
+
 cd <project>
 
 python -m venv test
+
 test\Scripts\activate
 
 pip install django
 
 python manage.py migrate
+
 python manage.py runserver
 
 
