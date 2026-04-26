@@ -1,0 +1,54 @@
+{% extends "base1.html" %}
+
+{% block title %}Employee Management{% endblock %}
+
+{% block content %}
+
+<div class="p-6">
+
+    <!-- Page Title -->
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold text-gray-800">Employee Management</h1>
+        <a href="{% url 'dashboard:add_employee' %}" 
+           class="bg-blue-600 text-white px-5 py-2 rounded-lg shadow hover:bg-blue-700 transition">
+           ➕ Add New Employee
+        </a>
+    </div>
+
+    <!-- Employee Table -->
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white shadow rounded-lg overflow-hidden">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="px-6 py-3 text-left text-gray-700 font-medium uppercase tracking-wider">Name</th>
+                    <th class="px-6 py-3 text-left text-gray-700 font-medium uppercase tracking-wider">Email</th>
+                    <th class="px-6 py-3 text-left text-gray-700 font-medium uppercase tracking-wider">Role</th>
+                    <th class="px-6 py-3 text-left text-gray-700 font-medium uppercase tracking-wider">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+                {% for emp in employees %}
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4">{{ emp.user.username }}</td>
+                    <td class="px-6 py-4">{{ emp.user.email }}</td>
+                    <td class="px-6 py-4">{{ emp.role }}</td>
+                    <td class="px-6 py-4">
+                        <a href="{% url 'dashboard:edit_employee' emp.id %}" 
+                           class="text-green-600 hover:underline mr-3">Edit</a>
+                        <a href="{% url 'dashboard:delete_employee' emp.id %}" 
+                           class="text-red-600 hover:underline">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="px-6 py-4 text-center text-gray-500">
+                        No employees found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

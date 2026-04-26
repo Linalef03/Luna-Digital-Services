@@ -1,0 +1,44 @@
+{% extends "base1.html" %}
+
+{% block title %}Order Details{% endblock %}
+
+{% block content %}
+
+<div class="p-6">
+
+    <!-- Page Title -->
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Order #{{ order.id }} Details</h1>
+
+    <!-- Order Card -->
+    <div class="bg-white p-6 shadow-lg rounded-xl space-y-3">
+
+        <p class="text-gray-700"><strong>Service:</strong> {{ order.service.name }}</p>
+        <p class="text-gray-700"><strong>Description:</strong> {{ order.description }}</p>
+        <p class="text-gray-700"><strong>Budget:</strong> ${{ order.budget }}</p>
+        <p class="text-gray-700"><strong>Status:</strong> 
+            <span class="font-semibold">{{ order.get_status_display }}</span>
+        </p>
+        <p class="text-gray-700"><strong>Assigned Employee:</strong> 
+            <span>{{ order.employee|default:"—" }}</span>
+        </p>
+
+        {% if order.status == "completed" %}
+            {% if order.final_file %}
+                <div class="mt-4">
+                    <p class="text-gray-700 font-semibold">Final File:</p>
+                    <a href="{{ order.final_file.url }}" 
+                       class="inline-block bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition mt-2"
+                       download>
+                        Download Final File
+                    </a>
+                </div>
+            {% else %}
+                <p class="text-gray-500 mt-2"> There is no final file uploaded by the employee.</p>
+            {% endif %}
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

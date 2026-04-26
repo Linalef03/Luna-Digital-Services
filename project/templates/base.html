@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Luna Digital Services{% endblock %}</title>
+    <script src="https://unpkg.com/htmx.org@1.9.3"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+<!-- Header / Navbar -->
+<header class="bg-blue-600 text-white p-4 flex justify-between items-center">
+    <div class="text-xl font-bold">Luna Digital Services</div>
+    <nav>
+        <ul class="flex space-x-4">
+            <li><a href="{% url 'home' %}" class="hover:underline">Home</a></li>
+            <li><a href="{% url 'accounts:login' %}" class="hover:underline">Log in</a></li>
+            <li><a href="{% url 'accounts:register' %}" class="hover:underline">Log up</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Main Content -->
+<main class="p-4">
+    {% block content %}
+   
+    {% endblock %}
+</main>
+
+
+
+</body>
+</html>

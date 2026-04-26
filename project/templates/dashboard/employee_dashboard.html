@@ -1,0 +1,65 @@
+{% extends "base1.html" %}
+
+{% block title %}Employee Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="p-6">
+
+    <!-- Page Title -->
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Employee Dashboard</h1>
+
+    <!-- Orders Table -->
+    <div class="overflow-x-auto shadow-lg rounded-lg">
+        <table class="min-w-full bg-white">
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="px-6 py-3 text-left text-gray-700 font-medium uppercase tracking-wider">Order ID</th>
+                    <th class="px-6 py-3 text-left text-gray-700 font-medium uppercase tracking-wider">Customer</th>
+                    <th class="px-6 py-3 text-left text-gray-700 font-medium uppercase tracking-wider">Service</th>
+                    <th class="px-6 py-3 text-left text-gray-700 font-medium uppercase tracking-wider">Status</th>
+                    <th class="px-6 py-3 text-left text-gray-700 font-medium uppercase tracking-wider">Action</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+                {% for order in orders %}
+                <tr class="hover:bg-gray-50">
+                    <td class="px-6 py-4">{{ order.id }}</td>
+                    <td class="px-6 py-4">{{ order.customer.username }}</td>
+                    <td class="px-6 py-4">{{ order.service.name }}</td>
+                    <td class="px-6 py-4">
+                        {% if order.status == 'pending' %}
+                            <span class="bg-yellow-200 text-yellow-800 px-2 py-1 rounded-full text-sm font-semibold">Pending</span>
+                        {% elif order.status == 'in_progress' %}
+                            <span class="bg-blue-200 text-blue-800 px-2 py-1 rounded-full text-sm font-semibold">In Progress</span>
+                        {% elif order.status == 'completed' %}
+                            <span class="bg-green-200 text-green-800 px-2 py-1 rounded-full text-sm font-semibold">Completed</span>
+                        {% else %}
+                            {{ order.status }}
+                        {% endif %}
+                    </td>
+                    <td class="px-6 py-4">
+                        {% if order.status != 'completed' %}
+                        <a href="{% url 'dashboard:start_order' order.id %}" 
+                           class="text-green-600 hover:underline">Start</a> |
+                        <a href="{% url 'dashboard:complete_order' order.id %}" 
+                           class="text-red-600 hover:underline">Complete</a>
+                        {% else %}
+                        <span class="text-gray-500 font-medium">Completed</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="px-6 py-4 text-center text-gray-500">
+                        No orders found.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+{% endblock %}

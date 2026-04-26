@@ -1,0 +1,45 @@
+{% extends "base1.html" %}
+
+{% block title %}Add/Edit Service{% endblock %}
+
+{% block content %}
+
+<div class="flex justify-center p-6">
+
+    <div class="w-full max-w-lg bg-white shadow-xl rounded-2xl p-8">
+
+        <!-- Page Title -->
+        <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">
+            Add / Edit Service
+        </h1>
+
+        <!-- Form -->
+        <form method="post" enctype="multipart/form-data" class="space-y-5">
+            {% csrf_token %}
+
+            <!-- Render Django form fields without filters -->
+            {% for field in form %}
+                <div class="flex flex-col">
+                    <label class="mb-2 font-medium text-gray-700">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <p class="text-red-500 text-sm mt-1">
+                            {% for error in field.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <!-- Submit Button -->
+            <button type="submit"
+                    class="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg shadow hover:bg-blue-700 transition">
+                Save Service
+            </button>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
